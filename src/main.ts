@@ -5,7 +5,7 @@ import {
 	NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { fastifyHelmet } from '@fastify/helmet';
-import { VersioningType } from '@nestjs/common';
+import { Logger, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as path from 'path';
 import { writeFileSync } from 'fs';
@@ -53,6 +53,8 @@ async function bootstrap() {
 	await app.register(fastifyHelmet, {
 		contentSecurityPolicy: false,
 	});
+	const logger = new Logger('bootstrap');
+	logger.log("Listening on port", port);
 	await app.listen(port, '0.0.0.0');
 }
 bootstrap();
